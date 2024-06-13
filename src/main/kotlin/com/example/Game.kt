@@ -19,12 +19,15 @@ class Game(
             }
 
     private fun scoreForFrame(frameIndex: Int, score: Int) =
-        if (isStrike(frameIndex)) {
-            Pair(score + 10 + strikeBonus(frameIndex), frameIndex + 1)
-        } else if (isSpare(frameIndex)) {
-            Pair(score + 10 + spareBonus(frameIndex), frameIndex + 2)
-        } else {
-            Pair(score + sumOfBallsInFrame(frameIndex), frameIndex + 2)
+        when {
+            isStrike(frameIndex) ->
+                Pair(score + 10 + strikeBonus(frameIndex), frameIndex + 1)
+
+            isSpare(frameIndex) ->
+                Pair(score + 10 + spareBonus(frameIndex), frameIndex + 2)
+
+            else ->
+                Pair(score + sumOfBallsInFrame(frameIndex), frameIndex + 2)
         }
 
     private fun strikeBonus(frameIndex: Int) = rolls[frameIndex + 1] + rolls[frameIndex + 2]
